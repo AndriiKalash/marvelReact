@@ -1,36 +1,40 @@
-class MarvelService {
+import { useHttp } from '../hooks/http.hook'
+
+const useMarvelService = () => {
+
+    const { request, loading, error, clearError } = useHttp();
 
     // no change variables
-    _apiBase = 'https://gateway.marvel.com:443/v1/public/';
-    _apiKey = 'apikey=eb03c9fffbbe36368c9ec0aa6013a804';
-    _offset = 210;
+    const _apiBase = 'https://gateway.marvel.com:443/v1/public/';
+    const _apiKey = 'apikey=eb03c9fffbbe36368c9ec0aa6013a804';
+    const _offset = 210;
 
-    getResource = async (url) => {
-        let res = await fetch(url);
-        if (!res.ok) {
-            throw new Error(`Could not fetch ${url}, status ${res.status}`)
-        }
+    // getResource = async (url) => {
+    //     let res = await fetch(url);
+    //     if (!res.ok) {
+    //         throw new Error(`Could not fetch ${url}, status ${res.status}`)
+    //     }
 
-        return await res.json();
-    };
+    //     return await res.json();
+    // };
 
-    getAllCharacters = async (offset = this._offset) => {
-        const res = await this.getResource(`${this._apiBase}characters?limit=9&offset=${offset}&${this._apiKey}`)
+    const getAllCharacters = async (offset = _offset) => {
+        const res = await request(`${_apiBase}characters?limit=9&offset=${offset}&${_apiKey}`)
         // массив с лишними данными :
         // return res.data.results;
-        return res.data.results.map(this._transformDataCharacter);
+        return res.data.results.map(_transformDataCharacter);
     }
 
 
 
-    getOneCharacter = async (id) => {
-        const res = await this.getResource(`${this._apiBase}characters/${id}?${this._apiKey}`);
-        return this._transformDataCharacter(res.data.results[0]);
+    const getOneCharacter = async (id) => {
+        const res = await request(`${_apiBase}characters/${id}?${_apiKey}`);
+        return _transformDataCharacter(res.data.results[0]);
 
     }
 
     //отфильтрованный обьект уже для стейта
-    _transformDataCharacter = (char) => {
+    const _transformDataCharacter = (char) => {
         return {
             id: char.id,
             name: char.name,
@@ -41,9 +45,11 @@ class MarvelService {
             comics: char.comics.items
         }
     }
+
+    return { loading, error, getAllCharacters, getOneCharacter, clearError }
 }
 
-export default MarvelService;
+export default useMarvelService;
 
 
 

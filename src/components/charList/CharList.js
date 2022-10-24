@@ -53,7 +53,7 @@ const CharList = ({ onCharacterId, selectCharId }) => {
         }
     };
 
-    function renderElements(arr) {
+    function renderCararacters(arr) {
         const element = arr.map((item) => {
             const { id, name, thumbnail } = item;
             return (
@@ -75,8 +75,7 @@ const CharList = ({ onCharacterId, selectCharId }) => {
         )
     }
 
-    const items = renderElements(characters);
-
+    const items = renderCararacters(characters);
     const errorMessage = error ? <ErrorMassage /> : null;
     const spinner = loading && !newListLoading ? <Spinner /> : null;
     // const card = !(loading || error) ? elements : null;

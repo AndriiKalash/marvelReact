@@ -25,12 +25,21 @@ const useMarvelService = () => {
         return res.data.results.map(_transformDataCharacter);
     }
 
-
+    const getAllComics = async (offset = 33) => {
+        const res = await request(`${_apiBase}comics?limit=8&offset=${offset}&${_apiKey}`);
+        // return res.data.results;
+        return res.data.results.map(_transformDataComics);
+    }
 
     const getOneCharacter = async (id) => {
         const res = await request(`${_apiBase}characters/${id}?${_apiKey}`);
         return _transformDataCharacter(res.data.results[0]);
 
+    }
+
+    const getOneComics = async (id) => {
+        const res = await request(`${_apiBase}comics/${id}?${_apiKey}`);
+        return _transformDataComics(res.data.results[0]);
     }
 
     //отфильтрованный обьект уже для стейта
@@ -46,10 +55,23 @@ const useMarvelService = () => {
         }
     }
 
-    return { loading, error, getAllCharacters, getOneCharacter, clearError }
+    const _transformDataComics = (obj) => {
+        return {
+            id: obj.id,
+            name: obj.title,
+            thumbnail: obj.thumbnail.path + '.' + obj.thumbnail.extension,
+            lang: obj.textObjects.language || 'en-us',
+            description: obj.description || 'There is no description',
+            pages: obj.pageCount ? `${obj.pageCount} p.` : 'No information about the number of pages',
+            price: obj.prices[0].price ? `${obj.prices[0].price}$` : 'not available'
+        }
+    }
+
+    return { loading, error, getAllCharacters, getOneCharacter, getAllComics, getOneComics, clearError }
 }
 
 export default useMarvelService;
+
 
 
 

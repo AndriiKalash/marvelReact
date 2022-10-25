@@ -1,63 +1,28 @@
-import { useState } from 'react';
-
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import AppHeader from "../appHeader/AppHeader";
-import RandomChar from "../randomChar/RandomChar";
-import CharList from "../charList/CharList";
-import CharInfo from "../charInfo/CharInfo";
-import ErrorBaundary from "../errorBaundary/ErrorBaundary";
-import ComicsList from '../comicsList/ComicsList';
-import SingleComic from '../singleComic/SingleComic';
-
-import decoration from '../../resources/img/vision.png';
+import { MainPage, ComicsPage, Page404 } from '../pages'
 
 
 const App = () => {
 
-    const [selectChar, setSelectChar] = useState(null);
-    const [selectComic, setSelectComic] = useState(null);
-
-    const onCharacterId = (id) => {
-        setSelectChar(id);
-    }
-
-    const onComicId = (id) => {
-        setSelectComic(id);
-    }
-
     return (
-        <div className="app">
-            <AppHeader />
-            <main>
-                <ErrorBaundary>
-                    <RandomChar />
-                </ErrorBaundary>
+        <Router>
+            <div className="app">
+                <AppHeader />
+                <main>
 
-                {/* <div className="char__content">
+                    <Routes>
+                        <Route path="/" element={<MainPage />} />
+                        <Route path="/comics" element={<ComicsPage />} />
+                        <Route path="*" element={<Page404 />} />
+                    </Routes>
 
-                    <ErrorBaundary>
-                        <CharList
-                            onCharacterId={onCharacterId}
-                            selectCharId={selectChar} />
-                    </ErrorBaundary>
-
-                    <ErrorBaundary>
-                        <CharInfo charId={selectChar} />
-                    </ErrorBaundary>
-
-                </div> */}
-                {
-                    selectComic ? <ErrorBaundary>
-                        <SingleComic setSelectComic={setSelectComic} comicId={selectComic} />
-                    </ErrorBaundary> :
-                        <ErrorBaundary>
-                            <ComicsList onComicId={onComicId} />
-                        </ErrorBaundary>
-                }
+                </main>
+            </div>
+        </Router>
 
 
-                <img className="bg-decoration" src={decoration} alt="vision" />
-            </main>
-        </div>
+
     )
 
 }

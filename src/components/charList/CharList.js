@@ -41,7 +41,6 @@ const CharList = ({ onCharacterId, selectCharId }) => {
         }
         setCharacters(characters => [...characters, ...res]);
         setOffset(offset => offset + 9);
-        setNewListLoading(false);
         setLimitEnd(ended);
     }
 

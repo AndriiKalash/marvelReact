@@ -1,6 +1,9 @@
 import { useHttp } from '../hooks/http.hook'
+import calcScroll from "../services/CalcScroll";
 
 const useMarvelService = () => {
+
+    const scroll = calcScroll();
 
     const { request, loading, error, clearError } = useHttp();
 
@@ -18,6 +21,7 @@ const useMarvelService = () => {
     //     return await res.json();
     // };
 
+
     const getAllCharacters = async (offset = _offset) => {
         const res = await request(`${_apiBase}characters?limit=9&offset=${offset}&${_apiKey}`)
         // массив с лишними данными :
@@ -26,6 +30,7 @@ const useMarvelService = () => {
     }
 
     const getAllComics = async (offset = 33) => {
+        document.body.style.marginRight = `${scroll}px`;
         const res = await request(`${_apiBase}comics?limit=8&offset=${offset}&${_apiKey}`);
         // return res.data.results;
         return res.data.results.map(_transformDataComics);
@@ -37,7 +42,14 @@ const useMarvelService = () => {
 
     }
 
+    const getOneCharacterByName = async (name) => {
+        const res = await request(`${_apiBase}characters?name=${name}&${_apiKey}`);
+        // return _transformDataCharacter(res.data.results[0]);
+        return res.data.results.map(_transformDataCharacter)
+    }
+
     const getOneComics = async (id) => {
+        document.body.style.marginRight = `${scroll}px`;
         const res = await request(`${_apiBase}comics/${id}?${_apiKey}`);
         return _transformDataComics(res.data.results[0]);
     }
@@ -67,7 +79,7 @@ const useMarvelService = () => {
         }
     }
 
-    return { loading, error, getAllCharacters, getOneCharacter, getAllComics, getOneComics, clearError }
+    return { loading, error, getAllCharacters, getOneCharacter, getOneCharacterByName, getAllComics, getOneComics, clearError }
 }
 
 export default useMarvelService;

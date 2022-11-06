@@ -7,6 +7,7 @@ import Skeleton from '../../components/skeleton/Skeleton';
 import Spinner from '../../components/spinner/Spinner';
 import ErrorMassage from '../errorMessage/ErrorMessage';
 
+
 import './charInfo.scss';
 
 
@@ -41,12 +42,16 @@ const CharInfo = (props) => {
     const errorMessage = error ? <ErrorMassage /> : null;
 
     return (
-        <div className="char__info">
-            {skeleton}
-            {errorMessage}
-            {spinner}
-            {content}
-        </div>
+        <>
+            <div className="char__info">
+                {skeleton}
+                {errorMessage}
+                {spinner}
+                {content}
+            </div>
+
+        </>
+
     )
 }
 
@@ -97,6 +102,7 @@ const View = ({ char }) => {
                 {comicsSpace}
 
             </ul>
+
         </>
     )
 }

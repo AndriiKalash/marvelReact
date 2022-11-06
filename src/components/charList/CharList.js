@@ -9,7 +9,7 @@ import ErrorMassage from '../errorMessage/ErrorMessage';
 
 
 
-const CharList = ({ onCharacterId, selectCharId }) => {
+const CharList = () => {
 
     const [characters, setCharacters] = useState([]);
     const [offset, setOffset] = useState(210);
@@ -21,10 +21,10 @@ const CharList = ({ onCharacterId, selectCharId }) => {
         updateCharacters(offset, true);
     }, []);
 
-    useEffect(() => {
-        window.addEventListener('scroll', onScroll);
-        return () => window.removeEventListener('scroll', onScroll);
-    }, [offset]);
+    // useEffect(() => {
+    //     window.addEventListener('scroll', onScroll);
+    //     return () => window.removeEventListener('scroll', onScroll);
+    // }, [offset]);
 
     //   main request
     const updateCharacters = (offset, initial) => {
@@ -41,6 +41,7 @@ const CharList = ({ onCharacterId, selectCharId }) => {
         }
         setCharacters(characters => [...characters, ...res]);
         setOffset(offset => offset + 9);
+        setNewListLoading(false);
         setLimitEnd(ended);
     }
 
@@ -54,16 +55,11 @@ const CharList = ({ onCharacterId, selectCharId }) => {
 
     function renderCararacters(arr) {
         const element = arr.map((item) => {
-            const { id, name, thumbnail } = item;
+            const { id } = item;
             return (
                 <CharCard
                     key={id}
-                    name={name}
-                    thumbnail={thumbnail}
-                    id={id}
-                    // {...item}
-                    onCharacterId={onCharacterId}
-                    selectCharId={selectCharId}
+                    {...item}
                 />
             )
         })

@@ -1,22 +1,17 @@
-// import { useState } from 'react';
-
 import AppBanner from '../appBanner/AppBanner'
-import ComicsList from '../comicsList/ComicsList';
+import Singlecharacter from '../singleCharacter/SingleCharacter';
 import ErrorBaundary from "../errorBaundary/ErrorBaundary";
 
-
-const ComicsPage = () => {
+const SingleCharacterPage = () => {
 
     return (
         <>
             <AppBanner />
-
             <ErrorBaundary>
-                <ComicsList />
+                <Singlecharacter />
             </ErrorBaundary>
-
         </>
     )
 }
 
-export default ComicsPage;
+export default SingleCharacterPage;

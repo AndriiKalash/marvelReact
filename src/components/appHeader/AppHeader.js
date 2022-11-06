@@ -3,7 +3,7 @@ import './appHeader.scss';
 
 const AppHeader = () => {
     return (
-        <header className="app__header">
+        <header className="app__header" >
             <h1 className="app__title">
                 <Link to="/">
                     <span>Marvel</span> information portal
@@ -13,7 +13,7 @@ const AppHeader = () => {
                 <ul>
                     <li><NavLink end style={({ isActive }) => ({ color: isActive ? '#9F0013' : 'inherit' })} to="/">Characters</NavLink></li>
                     /
-                    <li><NavLink end style={({ isActive }) => ({ color: isActive ? '#9F0013' : 'inherit' })} to="/comics">Comics</NavLink></li>
+                    <li><NavLink end style={({ isActive }) => ({ color: isActive ? '#9F0013' : 'inherit' })} to="/comics" >Comics</NavLink></li>
                 </ul>
             </nav>
         </header>

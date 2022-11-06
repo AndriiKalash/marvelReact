@@ -1,30 +1,30 @@
 import './singleComic.scss';
 
 import { useEffect, useState } from 'react';
+import { useParams, Link } from 'react-router-dom';
 
 import useMarvelService from '../../services/MarvelService';
 import Spinner from '../../components/spinner/Spinner';
 import ErrorMassage from '../errorMessage/ErrorMessage';
 
-const SingleComic = ({ setSelectComic, comicId }) => {
+const SingleComic = () => {
 
     const [oneComics, setOneComics] = useState(null);
     const { loading, error, getOneComics } = useMarvelService();
+    // метод react-router-dom, передает строчку id из Link в ComicsList 
+    const { comicId } = useParams();
 
     useEffect(() => {
         updateOneComics();
     }, [comicId]);
 
     const updateOneComics = () => {
-
-        if (!comicId) {
-            return;
-        }
         getOneComics(comicId)
             .then(onComicLoaded)
     }
 
     const onComicLoaded = (res) => {
+        document.body.style.marginRight = `${0}px`;
         setOneComics(res);
     }
 
@@ -40,7 +40,7 @@ const SingleComic = ({ setSelectComic, comicId }) => {
             {content}
             {errorMessage}
 
-            <a onClick={() => setSelectComic(null)} href="#" className="single-comic__back">Back to all</a>
+            <Link to={'/comics'} className="single-comic__back">Back to all</Link>
         </div>
     )
 }

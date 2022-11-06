@@ -1,0 +1,55 @@
+.char {
+    &__form {
+        margin-top: 30px;
+        padding: 25px;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+        position: relative;
+        z-index: 5;
+        background-color: #fff;
+    }
+
+    &__form-label {
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 21px;
+        color: #000000;
+        width: 204px;
+        height: 24px;
+    }
+
+    // .char__form-block
+
+    &__form-block {
+        margin-top: 15px;
+    }
+
+    // .char__info-field
+
+    &__info-field {
+        padding: 10.45px 10px;
+        width: 250px;
+        height: 38px;
+        background: #FFFFFF;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        margin-right: 24px;
+    }
+
+    &__form-error {
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 21px;
+        color: #9F0013;
+        margin-top: 25px;
+    }
+
+    &__form-error-block {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__form-topage {
+        margin-top: 15px;
+    }
+
+
+}

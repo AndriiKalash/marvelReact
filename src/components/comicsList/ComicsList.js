@@ -1,18 +1,21 @@
 import './comicsList.scss';
 
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import useMarvelService from '../../services/MarvelService';
 import Spinner from '../../components/spinner/Spinner';
 import ErrorMassage from '../errorMessage/ErrorMessage';
 
 
-const ComicsList = ({ onComicId }) => {
+const ComicsList = () => {
 
     const [comics, setComics] = useState([]);
     const [newComicsLoading, setNewComicsLoading] = useState(false);
     const [offset, setOffset] = useState(0)
     const { loading, error, getAllComics } = useMarvelService();
+
+
 
 
     useEffect(() => {
@@ -26,6 +29,7 @@ const ComicsList = ({ onComicId }) => {
     }
 
     const loadedComics = (res) => {
+        document.body.style.marginRight = `${0}px`;
         setComics([...comics, ...res]);
         setNewComicsLoading(false);
         setOffset(offset => offset + 8);
@@ -35,13 +39,13 @@ const ComicsList = ({ onComicId }) => {
         const comicsCards = arr.map((item, i) => {
             const { id, name, thumbnail, price } = item;
             return (
-                <li onClick={() => onComicId(id)} key={i} className="comics__item">
-                    <a href="#">
+                <li key={i} className="comics__item">
+                    <Link to={`/comics/${id}`}>
                         <img src={thumbnail} alt="ultimate war" className="comics__item-img" />
                         <div className="comics__item-name">{name}</div>
                         <div className="comics__item-price">{price}</div>
-                    </a>
-                </li>
+                    </Link>
+                </li >
             )
         })
         return (

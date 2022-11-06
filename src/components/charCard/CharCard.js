@@ -1,14 +1,20 @@
+
 import PropTypes from 'prop-types';
 
-const CharCard = ({ name, thumbnail, id, onCharacterId, selectCharId }) => {
+import { useContext } from 'react';
+import AppContext from '../../services/context';
 
+
+const CharCard = ({ name, thumbnail, id }) => {
+
+    const { onCharacterId, selectChar } = useContext(AppContext);
 
     return (
         <li
             onClick={() => onCharacterId(id)}
             tabIndex={0}
             onKeyPress={(e) => (e.key === "Enter") ? onCharacterId(id) : null}
-            className={selectCharId === id ? "char__item char__item_selected" : "char__item"}>
+            className={selectChar === id ? "char__item char__item_selected" : "char__item"}>
             <img
                 style={thumbnail.includes('not_available') ? { objectFit: "contain" } : { objectFit: "cover" }}
                 src={thumbnail}

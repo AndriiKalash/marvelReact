@@ -25,10 +25,9 @@ const App = () => {
                                      <Route path="" element={<MainPage />} />     
                                      <Route path="comics" element={<ComicsPage />} />
                                      <Route path="comics/:comicId" element={<SingleComicPage />} />
-                                     <Route path='character/:name' element=       {<SingleCharacterPage />} />
+                                     <Route path='character/:name' element= {<SingleCharacterPage />} />
                                      <Route path="*" element={<Page404 />} />
-                                </Route>
-                               
+                                </Route> 
                             </Routes>
                     </Suspense>
                 </main>

@@ -1,55 +1,34 @@
 import { useHttp } from '../hooks/http.hook'
-import calcScroll from "../services/CalcScroll";
+
 
 const useMarvelService = () => {
 
-    const scroll = calcScroll();
-
-    const { request, loading, error, clearError } = useHttp();
-
+    const { request, loading, error, clearError, process, setProcess } = useHttp();
     // no change variables
     const _apiBase = 'https://gateway.marvel.com:443/v1/public/';
     const _apiKey = 'apikey=eb03c9fffbbe36368c9ec0aa6013a804';
-    const _offset = 210;
 
-    // getResource = async (url) => {
-    //     let res = await fetch(url);
-    //     if (!res.ok) {
-    //         throw new Error(`Could not fetch ${url}, status ${res.status}`)
-    //     }
-
-    //     return await res.json();
-    // };
-
-
-    const getAllCharacters = async (offset = _offset) => {
-        const res = await request(`${_apiBase}characters?limit=9&offset=${offset}&${_apiKey}`)
-        // массив с лишними данными :
-        // return res.data.results;
+    const getAllCharacters = async (offset) => {
+        const res = await request(`${_apiBase}characters?limit=9&offset=${offset}&${_apiKey}`);
         return res.data.results.map(_transformDataCharacter);
     }
 
-    const getAllComics = async (offset = 33) => {
-        document.body.style.marginRight = `${scroll}px`;
+    const getAllComics = async (offset) => {
         const res = await request(`${_apiBase}comics?limit=8&offset=${offset}&${_apiKey}`);
-        // return res.data.results;
         return res.data.results.map(_transformDataComics);
     }
 
     const getOneCharacter = async (id) => {
         const res = await request(`${_apiBase}characters/${id}?${_apiKey}`);
         return _transformDataCharacter(res.data.results[0]);
-
     }
 
     const getOneCharacterByName = async (name) => {
         const res = await request(`${_apiBase}characters?name=${name}&${_apiKey}`);
-        // return _transformDataCharacter(res.data.results[0]);
         return res.data.results.map(_transformDataCharacter)
     }
 
     const getOneComics = async (id) => {
-        document.body.style.marginRight = `${scroll}px`;
         const res = await request(`${_apiBase}comics/${id}?${_apiKey}`);
         return _transformDataComics(res.data.results[0]);
     }
@@ -79,7 +58,18 @@ const useMarvelService = () => {
         }
     }
 
-    return { loading, error, getAllCharacters, getOneCharacter, getOneCharacterByName, getAllComics, getOneComics, clearError }
+    return {
+        loading,
+        error,
+        process,
+        setProcess,
+        getAllCharacters,
+        getOneCharacter,
+        getOneCharacterByName,
+        getAllComics,
+        getOneComics,
+        clearError
+    }
 }
 
 export default useMarvelService;

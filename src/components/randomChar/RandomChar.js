@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import useMarvelService from '../../services/MarvelService';
 
-import Spinner from '../../components/spinner/Spinner';
-import ErrorMassage from '../errorMessage/ErrorMessage';
+import setContent from '../../utils/setContent';
+// import Spinner from '../../components/spinner/Spinner';
+// import ErrorMassage from '../errorMessage/ErrorMessage';
 
 import './randomChar.scss';
 import mjolnir from '../../resources/img/mjolnir.png';
@@ -11,22 +12,21 @@ import mjolnir from '../../resources/img/mjolnir.png';
 const RandomChar = () => {
 
     const [char, setChar] = useState({});
-    const { loading, error, getOneCharacter, clearError } = useMarvelService();
+    const { loading, error, process, setProcess, getOneCharacter, clearError } = useMarvelService();
 
 
     useEffect(() => {
         updateChar();
-        const timerId = setInterval(updateChar, 60000);
-        return () => clearInterval(timerId);
+        // const timerId = setInterval(updateChar, 60000);
+        // return () => clearInterval(timerId);
     }, []);
 
     const updateChar = () => {
         clearError();
-        // const id = 1011377;
         const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
         getOneCharacter(id)
             .then(onCharLoaded)
-        // .catch(onError)
+            .then(() => setProcess('confirmed'))
     }
 
     const onCharLoaded = (res) => {
@@ -34,16 +34,17 @@ const RandomChar = () => {
     }
 
 
-    const loadSpinner = loading ? <Spinner /> : null;
-    const loadView = !(loading || error) ? <View char={char} /> : null;
-    const loadError = error ? <ErrorMassage /> : null;
+    // const loadSpinner = loading ? <Spinner /> : null;
+    // const loadView = !(loading || error) ? <View char={char} /> : null;
+    // const loadError = error ? <ErrorMassage /> : null;
 
     return (
         <div className="randomchar">
 
-            {loadSpinner}
+            {/* {loadSpinner}
             {loadView}
-            {loadError}
+            {loadError} */}
+            {setContent(process, char, View)}
 
             <div className="randomchar__static">
                 <p className="randomchar__title">
@@ -64,8 +65,8 @@ const RandomChar = () => {
 
 
 
-const View = ({ char }) => {
-    const { name, description, thumbnail, homepage, wiki } = char;
+const View = ({ data }) => {
+    const { name, description, thumbnail, homepage, wiki } = data;
 
     return (
         <div className="randomchar__block">

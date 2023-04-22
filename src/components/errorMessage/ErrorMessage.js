@@ -1,4 +1,3 @@
-
 import img from './images.jpg';
 
 const ErrorMessage = () => {

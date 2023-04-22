@@ -1,6 +1,4 @@
-
 import PropTypes from 'prop-types';
-
 import { useContext } from 'react';
 import AppContext from '../../services/context';
 
@@ -10,7 +8,7 @@ const CharCard = ({ name, thumbnail, id }) => {
     const { onCharacterId, selectChar } = useContext(AppContext);
 
     return (
-        <li
+        <li 
             onClick={() => onCharacterId(id)}
             tabIndex={0}
             onKeyPress={(e) => (e.key === "Enter") ? onCharacterId(id) : null}

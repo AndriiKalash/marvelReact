@@ -1,18 +1,16 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-scroll';
 import useMarvelService from '../../services/MarvelService';
-
-import './charList.scss';
 
 import CharCard from '../charCard/CharCard';
 import Spinner from '../../components/spinner/Spinner';
-import ErrorMassage from '../errorMessage/ErrorMessage';
-
-
+import ErrorMessage from '../errorMessage/ErrorMessage';
+import './charList.scss';
 
 const CharList = () => {
 
     const [characters, setCharacters] = useState([]);
-    const [offset, setOffset] = useState(210);
+    const [offset, setOffset] = useState(213);
     const [newListLoading, setNewListLoading] = useState(false);
     const [limitEnd, setLimitEnd] = useState(false);
     const { loading, error, getAllCharacters } = useMarvelService();
@@ -21,34 +19,29 @@ const CharList = () => {
         updateCharacters(offset, true);
     }, []);
 
-    // useEffect(() => {
-    //     window.addEventListener('scroll', onScroll);
-    //     return () => window.removeEventListener('scroll', onScroll);
-    // }, [offset]);
+    useEffect(() => {
+        window.addEventListener('scroll', onScroll);
+        return () => window.removeEventListener('scroll', onScroll);
+    }, [offset]);
 
     //   main request
     const updateCharacters = (offset, initial) => {
         initial ? setNewListLoading(false) : setNewListLoading(true);
         getAllCharacters(offset)
             .then(onCharactersLoded)
-        // .catch(onError)
     }
 
     const onCharactersLoded = (res) => {
-        let ended = false;
-        if (res.length < 9) {
-            ended = true;
-        }
+        if (res.length < 9) setLimitEnd(true);
         setCharacters(characters => [...characters, ...res]);
         setOffset(offset => offset + 9);
         setNewListLoading(false);
-        setLimitEnd(ended);
     }
 
     const onScroll = () => {
         if (limitEnd) window.removeEventListener('scroll', onScroll);
         if (window.pageYOffset + document.documentElement.clientHeight >=
-            (document.documentElement.scrollHeight) && offset >= 219) {
+            (document.documentElement.scrollHeight) && offset >= 222) {
             updateCharacters(offset);
         }
     };
@@ -57,10 +50,13 @@ const CharList = () => {
         const element = arr.map((item) => {
             const { id } = item;
             return (
-                <CharCard
-                    key={id}
-                    {...item}
-                />
+                <Link to='topList'
+                 smooth={true} 
+                 duration={500} 
+                 key={id}>
+                  <CharCard {...item}/>
+                </Link>
+                
             )
         })
         return (
@@ -71,22 +67,21 @@ const CharList = () => {
     }
 
     const items = renderCararacters(characters);
-    const errorMessage = error ? <ErrorMassage /> : null;
+    const errorMessage = error ? <ErrorMessage /> : null;
     const spinner = loading && !newListLoading ? <Spinner /> : null;
-    // const card = !(loading || error) ? elements : null;
+
 
     return (
-        <div className="char__list">
-
+        <div name='topList' className="char__list">
             {spinner}
             {items}
             {errorMessage}
-
             <button
                 onClick={() => { updateCharacters(offset) }}
                 disabled={newListLoading}
                 style={{ 'display': limitEnd ? "none" : "block" }}
-                className="button button__main button__long">
+                className="button button__main button__long"
+            >
                 <div className="inner">load more</div>
             </button>
         </div >

@@ -2,63 +2,73 @@ import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import useMarvelService from '../../services/MarvelService';
-
-import Skeleton from '../../components/skeleton/Skeleton';
-import Spinner from '../../components/spinner/Spinner';
-import ErrorMassage from '../errorMessage/ErrorMessage';
-
-
+import setContent from '../../utils/setContent';
+// import Skeleton from '../../components/skeleton/Skeleton';
+// import Spinner from '../../components/spinner/Spinner';
+// import ErrorMassage from '../errorMessage/ErrorMessage';
 import './charInfo.scss';
 
 
-const CharInfo = (props) => {
+const CharInfo = ({charId}) => {
 
     const [char, setChar] = useState(null);
-    const { getOneCharacter, loading, error } = useMarvelService();
+    const { getOneCharacter, loading, error, process, setProcess } = useMarvelService();
 
     useEffect(() => {
         updateChar();
-    }, [props.charId]);
+    }, [charId]);
 
     const updateChar = () => {
-        const { charId } = props;
         if (!charId) {
             return;
         }
-
         getOneCharacter(charId)
             .then(onCharLoaded)
-        // .catch(onError)
+            .then(() => setProcess('confirmed'))
     }
 
     const onCharLoaded = (res) => {
         setChar(res);
     }
 
+    // // use finent-state machine instead  traditinal logic
+    // const setContent = (process, char) => {
+    //     switch (process) {
+    //         case 'waiting':
+    //             return <Skeleton />
+    //         case 'loading':
+    //             return <Spinner />
+    //         case 'confirmed':
+    //             return <View char={char} />
+    //         case 'error':
+    //             return <ErrorMassage />
+    //     }
+    // }
 
-    const skeleton = !(loading || error || char) ? <Skeleton /> : null;
-    const spinner = loading ? <Spinner /> : null;
-    const content = !(loading || error || !char) ? <View char={char} /> : null;
-    const errorMessage = error ? <ErrorMassage /> : null;
+
+    // const skeleton = !(loading || error || char) ? <Skeleton /> : null;
+    // const spinner = loading ? <Spinner /> : null;
+    // const content = !(loading || error || !char) ? <View char={char} /> : null;
+    // const errorMessage = error ? <ErrorMassage /> : null;
 
     return (
         <>
             <div className="char__info">
-                {skeleton}
+                {/* {skeleton}
                 {errorMessage}
                 {spinner}
-                {content}
+                {content} */}
+                {setContent(process, char, View)}
             </div>
-
         </>
-
     )
 }
 
 // component with info
-const View = ({ char }) => {
+// props sended like data becouse it is coming from new function setContent
+const View = ({ data }) => {
 
-    const { name, description, thumbnail, homepage, wiki, comics } = char;
+    const { name, description, thumbnail, homepage, wiki, comics } = data;
 
     const comicsList = comics.map((item, id, comics) => {
         comics.length = 10;
@@ -98,11 +108,8 @@ const View = ({ char }) => {
             </div>
             <div className="char__comics">Comics:</div>
             <ul className="char__comics-list">
-
                 {comicsSpace}
-
             </ul>
-
         </>
     )
 }

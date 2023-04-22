@@ -1,15 +1,14 @@
-import { Link, } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { useContext, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-import AppContext from '../../services/context';
 import useMarvelService from '../../services/MarvelService';
 import './searcform.scss'
 
 const SearchForm = () => {
 
-    const { characterByName, setCharacterByName } = useContext(AppContext);
+    const [characterByName, setCharacterByName] = useState(null);
     const { getOneCharacterByName, clearError } = useMarvelService();
 
 
@@ -36,19 +35,13 @@ const SearchForm = () => {
     return (
 
         <Formik
-            //    props:
-            initialValues={{
-                name: ''
-            }}
-
+            initialValues={{name: ''}}
             validationSchema={Yup.object({
                 name: Yup.string()
                     .required('This field is required')
-
             })}
-
-            onSubmit={({ name }) => {
-                updateCharacterByName(name);
+            onSubmit={(values) => {
+                updateCharacterByName(values.name);
 
             }}
         >

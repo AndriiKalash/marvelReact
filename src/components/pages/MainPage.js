@@ -17,10 +17,10 @@ const MainPage = () => {
 
     const onCharacterId = (id) => {
         setSelectChar(id);
-    }
+    };
 
     const scrollToTop = () => {
-        scroll.scrollToTop();
+        scroll.scrollToTop();  
     };
 
     return (
@@ -28,25 +28,18 @@ const MainPage = () => {
             <ErrorBaundary>
                 <RandomChar />
             </ErrorBaundary>
-
             <div className="char__content">
-
                 <ErrorBaundary>
                     <AppContext.Provider value={{ onCharacterId, selectChar }}>
                         <CharList />
                     </AppContext.Provider>
                 </ErrorBaundary>
-
                 <div >
                     <ErrorBaundary>
                         <CharInfo charId={selectChar} />
                     </ErrorBaundary>
-
                     <SearchForm />
-
                 </div>
-
-
             </div>
 
             <img className="bg-decoration" src={decoration} alt="vision" />
@@ -57,14 +50,8 @@ const MainPage = () => {
                 <div className="inner">UP</div>
             </a>
 
-
-
-
-
         </>
-
     )
-
 }
 
 

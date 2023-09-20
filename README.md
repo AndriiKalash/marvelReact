@@ -1,70 +1,31 @@
-# Getting Started with Create React App
+# Marvel Info App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the Marvel Info App, where you can explore information about your favorite comic book characters and their associated comics, all powered by the Marvel Developer Portal API.
 
-## Available Scripts
+## Overview
 
-In the project directory, you can run:
+The Marvel Info App is a React-based web application that allows users to browse a database of Marvel comic book characters and view the comics associated with them. Users can search for characters by name and explore a list of all comics available.
 
-### `yarn start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- **Character Information**: View detailed information about Marvel comic book characters, including their name, description, and thumbnail image.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- **Comics Listing**: Browse a list of comics associated with each character, including titles, issue numbers, and cover images.
 
-### `yarn test`
+- **Character Search**: Search for characters by name to quickly find your favorite Marvel heroes and villains.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Comic Book Catalog**: Explore a catalog of all available Marvel comics, including titles, descriptions, and cover images.
 
-### `yarn build`
+## Stack
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **ReactJS**: The frontend of the application is built using ReactJS, a popular JavaScript library for building user interfaces.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **React Hooks**: React Hooks are used for state management and side effects in the functional components.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **React Router**: React Router is used for client-side routing, enabling seamless navigation within the app.
 
-### `yarn eject`
+- **Formik & Yup**: Formik is used for form management, and Yup is used for form validation, providing a user-friendly form submission process.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- **react-scroll**: This library is used to implement smooth scrolling functionality for an improved user experience.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- **Marvel Developer Portal API**: The Marvel Developer Portal API is used to fetch data about comic book characters and comics from the Marvel universe.

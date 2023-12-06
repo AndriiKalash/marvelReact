@@ -14,15 +14,6 @@ const CharList = () => {
   const [limitEnd, setLimitEnd] = useState(false);
   const { loading, error, getAllCharacters } = useMarvelService();
 
-  useEffect(() => {
-    updateCharacters(offset, true);
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [offset]);
-
   //   main request
   const updateCharacters = (offset, initial) => {
     initial ? setNewListLoading(false) : setNewListLoading(true);
@@ -36,16 +27,9 @@ const CharList = () => {
     setNewListLoading(false);
   };
 
-  const onScroll = () => {
-    if (limitEnd) window.removeEventListener("scroll", onScroll);
-    if (
-      window.scrollY + document.documentElement.clientHeight >=
-        document.documentElement.scrollHeight &&
-      offset >= 222
-    ) {
-      updateCharacters(offset);
-    }
-  };
+  useEffect(() => {
+    updateCharacters(offset, true);
+  }, []);
 
   function renderCararacters(arr) {
     const element = arr.map((item) => {
@@ -74,7 +58,8 @@ const CharList = () => {
         }}
         disabled={newListLoading}
         style={{ display: limitEnd ? "none" : "block" }}
-        className="button button__main button__long">
+        className="button button__main button__long"
+      >
         <div className="inner">load more</div>
       </button>
     </div>

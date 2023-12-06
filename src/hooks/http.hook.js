@@ -1,19 +1,19 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState } from 'react';
 
 export const useHttp = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [process, setProcess] = useState("waiting");
+  const [process, setProcess] = useState('waiting');
 
   const request = useCallback(
     async (
       url,
-      method = "GET",
+      method = 'GET',
       body = null,
-      headers = { "Content-Type": "aplication/json" }
+      headers = { 'Content-Type': 'aplication/json' }
     ) => {
       setLoading(true);
-      setProcess("loading");
+      setProcess('loading');
 
       try {
         const res = await fetch(url, { method, body, headers });
@@ -26,7 +26,7 @@ export const useHttp = () => {
       } catch (e) {
         setLoading(false);
         setError(e.message);
-        setProcess("error");
+        setProcess('error');
         throw e;
       }
     },
@@ -36,7 +36,7 @@ export const useHttp = () => {
   // if rendomChar push error, for next render this F will remove error
   const clearError = useCallback(() => {
     setError(null);
-    setProcess("loading");
+    setProcess('loading');
   }, []);
 
   return { loading, request, error, clearError, process, setProcess };

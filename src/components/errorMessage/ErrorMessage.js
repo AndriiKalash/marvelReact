@@ -1,12 +1,19 @@
-import img from './images.jpg';
+import img from "./images.jpg";
 
 const ErrorMessage = () => {
-    return (
-        <img
-            style={{ display: 'block', width: "250px", height: "250px", objectFit: 'contain', margin: "0 auto" }}
-            src={img} alt="Error"
-        />
-    )
-}
+  return (
+    <img
+      style={{
+        display: "block",
+        width: "250px",
+        height: "250px",
+        objectFit: "contain",
+        margin: "0 auto",
+      }}
+      src={img}
+      alt="Error"
+    />
+  );
+};
 
 export default ErrorMessage;

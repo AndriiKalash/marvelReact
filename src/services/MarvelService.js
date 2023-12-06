@@ -1,11 +1,11 @@
-import { useHttp } from "../hooks/http.hook";
+import { useHttp } from '../hooks/http.hook';
 
 const useMarvelService = () => {
   const { request, loading, error, clearError, process, setProcess } =
     useHttp();
   // no change variables
-  const _apiBase = "https://gateway.marvel.com:443/v1/public/";
-  const _apiKey = "apikey=eb03c9fffbbe36368c9ec0aa6013a804";
+  const _apiBase = 'https://gateway.marvel.com:443/v1/public/';
+  const _apiKey = 'apikey=eb03c9fffbbe36368c9ec0aa6013a804';
 
   const getAllCharacters = async (offset) => {
     const res = await request(
@@ -36,15 +36,15 @@ const useMarvelService = () => {
     return _transformDataComics(res.data.results[0]);
   };
 
-  //отфильтрованный обьект уже для стейта
+  //отфильтрованный обьект для стейта
   const _transformDataCharacter = (char) => {
     return {
       id: char.id,
       name: char.name,
       description: char.description
         ? `${char.description.slice(0, 243)}...`
-        : "description not found",
-      thumbnail: char.thumbnail.path + "." + char.thumbnail.extension,
+        : 'description not found',
+      thumbnail: char.thumbnail.path + '.' + char.thumbnail.extension,
       homepage: char.urls[0].url,
       wiki: char.urls[1].url,
       comics: char.comics.items,
@@ -55,13 +55,13 @@ const useMarvelService = () => {
     return {
       id: obj.id,
       name: obj.title,
-      thumbnail: obj.thumbnail.path + "." + obj.thumbnail.extension,
-      lang: obj.textObjects.language || "en-us",
-      description: obj.description || "There is no description",
+      thumbnail: obj.thumbnail.path + '.' + obj.thumbnail.extension,
+      lang: obj.textObjects.language || 'en-us',
+      description: obj.description || 'There is no description',
       pages: obj.pageCount
         ? `${obj.pageCount} p.`
-        : "No information about the number of pages",
-      price: obj.prices[0].price ? `${obj.prices[0].price}$` : "not available",
+        : 'No information about the number of pages',
+      price: obj.prices[0].price ? `${obj.prices[0].price}$` : 'not available',
     };
   };
 
